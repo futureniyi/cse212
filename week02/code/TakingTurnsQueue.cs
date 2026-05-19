@@ -35,23 +35,20 @@ public class TakingTurnsQueue
     {
         if (_people.IsEmpty())
         {
-            throw new InvalidOperationException("No one in the queue.");
+            throw new InvalidOperationException("The queue is empty.");
         }
         else
         {
             Person person = _people.Dequeue();
 
-            // if turns are 0 or negative, this person should stay in the queue forever
             if (person.Turns <= 0)
             {
                 _people.Enqueue(person);
             }
             else
             {
-                // reduce the number of turns after they take one
                 person.Turns -= 1;
 
-                // only add them back if they still have turns left
                 if (person.Turns > 0)
                 {
                     _people.Enqueue(person);
